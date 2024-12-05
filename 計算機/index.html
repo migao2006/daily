@@ -46,6 +46,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       background: #e9e9e9;
+      overflow: hidden;
     }
 
     #buttons {
@@ -103,7 +104,7 @@
 <body>
   <div id="container">
     <div id="calculator">
-      <div id="screen"></div>
+      <div id="screen">0</div>
       <div id="buttons">
         <button onclick="appendToExpression('7')">7</button>
         <button onclick="appendToExpression('8')">8</button>
@@ -145,11 +146,15 @@
 
     // 更新屏幕
     function appendToExpression(value) {
-      screen.textContent += value;
+      if (screen.textContent === "0") {
+        screen.textContent = value;
+      } else {
+        screen.textContent += value;
+      }
     }
 
     function clearScreen() {
-      screen.textContent = "";
+      screen.textContent = "0";
     }
 
     async function calculate() {
