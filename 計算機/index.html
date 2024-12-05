@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>按鍵式計算機</title>
+  <title>計算機</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,27 +11,27 @@
     <div id="calculator">
       <div id="screen">0</div>
       <div id="buttons">
-        <button onclick="appendToExpression('7')">7</button>
-        <button onclick="appendToExpression('8')">8</button>
-        <button onclick="appendToExpression('9')">9</button>
-        <button onclick="appendToExpression('/')">÷</button>
+        <button class="btn" onclick="appendToExpression('7')">7</button>
+        <button class="btn" onclick="appendToExpression('8')">8</button>
+        <button class="btn" onclick="appendToExpression('9')">9</button>
+        <button class="btn" onclick="appendToExpression('/')">÷</button>
 
-        <button onclick="appendToExpression('4')">4</button>
-        <button onclick="appendToExpression('5')">5</button>
-        <button onclick="appendToExpression('6')">6</button>
-        <button onclick="appendToExpression('*')">×</button>
+        <button class="btn" onclick="appendToExpression('4')">4</button>
+        <button class="btn" onclick="appendToExpression('5')">5</button>
+        <button class="btn" onclick="appendToExpression('6')">6</button>
+        <button class="btn" onclick="appendToExpression('*')">×</button>
 
-        <button onclick="appendToExpression('1')">1</button>
-        <button onclick="appendToExpression('2')">2</button>
-        <button onclick="appendToExpression('3')">3</button>
-        <button onclick="appendToExpression('-')">−</button>
+        <button class="btn" onclick="appendToExpression('1')">1</button>
+        <button class="btn" onclick="appendToExpression('2')">2</button>
+        <button class="btn" onclick="appendToExpression('3')">3</button>
+        <button class="btn" onclick="appendToExpression('-')">−</button>
 
-        <button onclick="appendToExpression('0')">0</button>
-        <button onclick="appendToExpression('.')">.</button>
-        <button onclick="clearScreen()">C</button>
-        <button onclick="appendToExpression('+')">+</button>
+        <button class="btn" onclick="appendToExpression('0')">0</button>
+        <button class="btn" onclick="appendToExpression('.')">.</button>
+        <button class="btn" onclick="clearScreen()">C</button>
+        <button class="btn" onclick="appendToExpression('+')">+</button>
 
-        <button onclick="calculate()" style="grid-column: span 4; background: #f0f0f0;">=</button>
+        <button class="btn-equal" onclick="calculate()">=</button>
       </div>
     </div>
 
