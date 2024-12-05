@@ -1,94 +1,69 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
-  color: #333;
+// 初始化顯示區
+const screen = document.getElementById("screen");
+
+// 更新顯示區
+function appendToExpression(value) {
+  if (screen.textContent === "0") {
+    screen.textContent = value;  // 如果當前是0，替換為新的值
+  } else {
+    screen.textContent += value;  // 否則追加數字
+  }
 }
 
-#container {
-  display: flex;
-  width: 80%;
-  max-width: 1000px;
+// 清除顯示區
+function clearScreen() {
+  screen.textContent = "0";  // 恢復為0
 }
 
-#calculator {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// 計算結果並更新顯示
+async function calculate() {
+  const expression = screen.textContent;
+  try {
+    // 使用 eval 計算表達式
+    const result = eval(expression);  // 注意：eval 有安全風險，僅用於範例
+    screen.textContent = result;  // 顯示計算結果
+
+    // 儲存歷史紀錄
+    await saveToHistory(expression, result);
+
+    // 更新歷史紀錄
+    fetchHistory();
+  } catch (error) {
+    screen.textContent = "錯誤";  // 如果計算錯誤顯示錯誤訊息
+  }
 }
 
-#screen {
-  width: 100%;
-  height: 60px;
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  text-align: right;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #e9e9e9;
-  overflow: hidden;
+// 儲存計算紀錄到 Supabase
+async function saveToHistory(expression, result) {
+  const { data, error } = await supabase
+    .from('history')
+    .insert([{ expression, result }]);
+
+  if (error) {
+    console.error("無法儲存歷史紀錄：", error);
+  }
 }
 
-#buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 100%;
+// 獲取歷史紀錄並顯示
+async function fetchHistory() {
+  const { data, error } = await supabase
+    .from('history')
+    .select('*')
+    .order('timestamp', { ascending: false });
+
+  if (error) {
+    console.error("無法獲取歷史紀錄：", error);
+    return;
+  }
+
+  const historyList = document.getElementById("history-list");
+  historyList.innerHTML = "";  // 清空當前歷史紀錄
+  data.forEach(record => {
+    const li = document.createElement("li");
+    li.textContent = `${record.expression} = ${record.result}`;
+    historyList.appendChild(li);
+  });
 }
 
-button {
-  height: 50px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  background: #dcdcdc;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-}
-
-button:hover {
-  background: #c0c0c0;
-}
-
-button:active {
-  background: #a9a9a9;
-  transform: scale(0.95);
-}
-
-#history {
-  flex: 1;
-  margin-left: 20px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  max-height: 400px;
-}
-
-h2 {
-  margin-top: 0;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 10px;
-  font-size: 1rem;
-}
+// 初始化頁面時載入歷史紀錄
+fetchHistory();
