@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>弓箭PK - 登入頁面</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>弓箭PK - 登入與註冊</title>
+  <style>
+    /* 設定顯示區域 */
+    #game-page { display: none; }
+  </style>
 </head>
 <body>
-    <div id="login">
-        <h2>登入或註冊</h2>
-        <button onclick="signup()">註冊</button>
-        <button onclick="login()">登入</button>
-    </div>
 
-    <div id="game" style="display: none;">
-        <h2>遊戲頁面</h2>
-        <button onclick="createRoom()">創建房間</button>
-        <button onclick="joinRoom()">加入房間</button>
-    </div>
+  <!-- 註冊表單 -->
+  <div id="register-form">
+    <h2>註冊</h2>
+    <form onsubmit="event.preventDefault(); register();">
+      <input type="email" id="register-email" placeholder="輸入您的電子郵件" required><br>
+      <input type="password" id="register-password" placeholder="輸入您的密碼" required><br>
+      <button type="submit">註冊</button>
+    </form>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.28.2/dist/supabase.js"></script>
-    <script src="app.js"></script>
+  <!-- 登入表單 -->
+  <div id="login-form">
+    <h2>登入</h2>
+    <form onsubmit="event.preventDefault(); login();">
+      <input type="email" id="login-email" placeholder="輸入您的電子郵件" required><br>
+      <input type="password" id="login-password" placeholder="輸入您的密碼" required><br>
+      <button type="submit">登入</button>
+    </form>
+  </div>
+
+  <!-- 遊戲頁面 -->
+  <div id="game-page">
+    <h2>歡迎來到弓箭PK遊戲！</h2>
+    <p>這是遊戲頁面，您可以開始遊戲了。</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
