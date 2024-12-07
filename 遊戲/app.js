@@ -1,42 +1,13 @@
 // 初始化 Supabase 客戶端
 const supabase = createClient(
-  'https://uxjpchtlhietoiwrligm.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4anBjaHRsaGlldG9pd3JsaWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzU0MDYsImV4cCI6MjA0ODk1MTQwNn0.Wftfxzh7RNGy5_6SnRfcvfveAKpaIDFUyrwa7N4pW80'
+  'https://uxjpchtlhietoiwrligm.supabase.co',  // Supabase Base URL
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4anBjaHRsaGlldG9pd3JsaWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzU0MDYsImV4cCI6MjA0ODk1MTQwNn0.Wftfxzh7RNGy5_6SnRfcvfveAKpaIDFUyrwa7N4pW80'  // 您的 API 金鑰
 );
 
-// 顯示登入頁面
-function showLoginPage() {
-  document.getElementById('login').style.display = 'block';
-  document.getElementById('game').style.display = 'none';
-}
-
-// 登入功能
-async function login() {
-  const email = prompt('請輸入您的電子郵件');
-  const password = prompt('請輸入您的密碼');
-
-  try {
-    const { user, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      alert('登入失敗：' + error.message); // 顯示登入錯誤消息
-    } else {
-      alert('登入成功！'); // 顯示登入成功消息
-      showGamePage(); // 顯示遊戲頁面
-    }
-  } catch (err) {
-    console.error(err);
-    alert('登入過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
-  }
-}
-
 // 註冊功能
-async function signup() {
-  const email = prompt('請輸入您的電子郵件');
-  const password = prompt('請輸入您的密碼');
+async function register() {
+  const email = document.getElementById('register-email').value; // 讀取註冊表單的電子郵件
+  const password = document.getElementById('register-password').value; // 讀取註冊表單的密碼
 
   try {
     const { user, error } = await supabase.auth.signUp({
@@ -45,63 +16,56 @@ async function signup() {
     });
 
     if (error) {
-      alert('註冊失敗：' + error.message); // 顯示註冊錯誤消息
+      alert('註冊失敗：' + error.message); // 顯示錯誤訊息
     } else {
-      alert('註冊成功！請登入'); // 顯示註冊成功消息
+      alert('註冊成功！請登入。'); // 顯示註冊成功訊息
+      // 可以自動跳轉到登入頁面或清空表單
+      document.getElementById('register-form').reset();
     }
   } catch (err) {
     console.error(err);
-    alert('註冊過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
+    alert('註冊過程中發生錯誤：' + err.message); // 顯示錯誤訊息
+  }
+}
+
+// 登入功能
+async function login() {
+  const email = document.getElementById('login-email').value; // 讀取登入表單的電子郵件
+  const password = document.getElementById('login-password').value; // 讀取登入表單的密碼
+
+  try {
+    const { user, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      alert('登入失敗：' + error.message); // 顯示錯誤訊息
+    } else {
+      alert('登入成功！'); // 顯示登入成功訊息
+      // 跳轉到遊戲頁面或更新頁面
+      showGamePage();
+    }
+  } catch (err) {
+    console.error(err);
+    alert('登入過程中發生錯誤：' + err.message); // 顯示錯誤訊息
   }
 }
 
 // 顯示遊戲頁面
 function showGamePage() {
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('game').style.display = 'block';
+  // 假設這是一個切換頁面功能
+  document.getElementById('login-form').style.display = 'none'; // 隱藏登入表單
+  document.getElementById('register-form').style.display = 'none'; // 隱藏註冊表單
+  document.getElementById('game-page').style.display = 'block'; // 顯示遊戲頁面
 }
 
-// 創建房間
-async function createRoom() {
-  const roomName = prompt('請輸入房間名稱');
-  const password = prompt('請設定房間密碼');
+// 頁面加載時的初始化函數
+window.onload = function() {
+  // 可以在這裡進行一些初始化操作，例如檢查用戶是否已登入
+  const user = supabase.auth.user();
 
-  try {
-    const { data, error } = await supabase
-      .from('rooms')
-      .insert([{ room_name: roomName, password: password }]);
-
-    if (error) {
-      alert('創建房間失敗：' + error.message); // 顯示創建房間錯誤消息
-    } else {
-      alert('房間創建成功！');
-    }
-  } catch (err) {
-    console.error(err);
-    alert('創建房間過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
+  if (user) {
+    showGamePage(); // 如果已登入，跳轉到遊戲頁面
   }
-}
-
-// 加入房間
-async function joinRoom() {
-  const roomName = prompt('請輸入房間名稱');
-  const password = prompt('請輸入房間密碼');
-
-  try {
-    const { data, error } = await supabase
-      .from('rooms')
-      .select('*')
-      .eq('room_name', roomName)
-      .eq('password', password)
-      .single();
-
-    if (error) {
-      alert('加入房間失敗：' + error.message); // 顯示加入房間錯誤消息
-    } else {
-      alert('成功加入房間！');
-    }
-  } catch (err) {
-    console.error(err);
-    alert('加入房間過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
-  }
-}
+};
