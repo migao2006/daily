@@ -96,4 +96,17 @@ form button {
 
 /* 設定頁面背景和整體對齊方式 */
 html, body {
-  h
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+#register-form, #login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
