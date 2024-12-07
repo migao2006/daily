@@ -5,7 +5,7 @@ const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // 註冊用戶並將資料存入 Supabase
 async function registerUser() {
-  // 使用對話框提示用戶輸入電子郵件和密碼
+  // 彈出對話框讓用戶輸入電子郵件和密碼
   const email = prompt("請輸入您的電子郵件:");
   const password = prompt("請輸入您的密碼:");
 
@@ -34,7 +34,7 @@ async function registerUser() {
 
 // 登入用戶並提示成功或失敗
 async function loginUser() {
-  // 使用對話框提示用戶輸入電子郵件和密碼
+  // 彈出對話框讓用戶輸入電子郵件和密碼
   const email = prompt("請輸入您的電子郵件:");
   const password = prompt("請輸入您的密碼:");
 
