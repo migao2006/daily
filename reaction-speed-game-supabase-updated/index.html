@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反應速度PK</title>
+  <script src="script.js" defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; margin: 0; padding: 20px; }
+    h1 { color: #333; }
+    button { font-size: 16px; padding: 10px 20px; margin: 10px; cursor: pointer; border: none; border-radius: 5px; }
+    #start { background-color: #007bff; color: white; }
+    #start:hover { background-color: #0056b3; }
+    #start:disabled { background-color: #cccccc; cursor: not-allowed; }
+    #message { margin: 20px; font-size: 18px; font-weight: bold; }
+    #player1, #player2 { background-color: #28a745; color: white; }
+    #player1:hover, #player2:hover { background-color: #1c7c30; }
+    #player1:disabled, #player2:disabled { background-color: #cccccc; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h1>反應速度PK</h1>
+  <button id="start">開始遊戲</button>
+  <div id="message">按下「開始遊戲」按鈕！</div>
+  <button id="player1" disabled>玩家 1</button>
+  <button id="player2" disabled>玩家 2</button>
+  <div id="results">
+    <h2>排行榜</h2>
+    <ul id="leaderboard"></ul>
+  </div>
+</body>
+</html>
