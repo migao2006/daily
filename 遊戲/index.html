@@ -7,6 +7,29 @@
   <style>
     /* 設定顯示區域 */
     #game-page { display: none; }
+
+    /* 設定彈出對話框樣式 */
+    .alert-box {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .alert-box.success {
+      background-color: #4CAF50;
+    }
+
+    .alert-box.error {
+      background-color: #f44336;
+    }
   </style>
 </head>
 <body>
