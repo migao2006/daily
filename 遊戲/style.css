@@ -1,4 +1,4 @@
-/* 基本樣式設定 */
+/* 基本頁面樣式 */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,22 +8,25 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  box-sizing: border-box;
+  text-align: center;
 }
 
 h2 {
-  text-align: center;
   color: #333;
 }
 
-/* 註冊和登入表單樣式 */
+h3 {
+  color: #555;
+}
+
+/* 表單樣式 */
 #register-form, #login-form {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
 input[type="email"], input[type="password"] {
@@ -32,81 +35,18 @@ input[type="email"], input[type="password"] {
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
 }
 
-button[type="submit"] {
+button {
   width: 100%;
   padding: 10px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+button:hover {
   background-color: #45a049;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form input,
-form button {
-  margin-bottom: 10px;
-}
-
-/* 顯示遊戲頁面的樣式 */
-#game-page {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-  display: none;
-}
-
-/* 設定彈出對話框樣式 */
-.alert-box {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  font-size: 16px;
-  text-align: center;
-  z-index: 1000;
-}
-
-.alert-box.success {
-  background-color: #4CAF50;
-}
-
-.alert-box.error {
-  background-color: #f44336;
-}
-
-/* 設定頁面背景和整體對齊方式 */
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f4f4f4;
-}
-
-#register-form, #login-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
