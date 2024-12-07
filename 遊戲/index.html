@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>弓箭PK</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弓箭PK - 登入頁面</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="login">
-    <h1>弓箭PK</h1>
-    <button onclick="login()">登入</button>
-    <button onclick="signup()">註冊</button>
-  </div>
-
-  <div id="game" style="display: none;">
-    <h2>遊戲進行中</h2>
-    <button onclick="createRoom()">創建房間</button>
-    <button onclick="joinRoom()">加入房間</button>
-    <div id="game-board">
-      <p>這裡顯示遊戲內容</p>
+    <div id="login">
+        <h2>登入或註冊</h2>
+        <button onclick="signup()">註冊</button>
+        <button onclick="login()">登入</button>
     </div>
-  </div>
 
-  <script src="app.js"></script>
+    <div id="game" style="display: none;">
+        <h2>遊戲頁面</h2>
+        <button onclick="createRoom()">創建房間</button>
+        <button onclick="joinRoom()">加入房間</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.28.2/dist/supabase.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
