@@ -1,66 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>弓箭PK - 登入與註冊</title>
-  <style>
-    /* 設定顯示區域 */
-    #game-page { display: none; }
-
-    /* 設定彈出對話框樣式 */
-    .alert-box {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 15px;
-      border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      font-size: 16px;
-      text-align: center;
-      z-index: 1000;
-    }
-
-    .alert-box.success {
-      background-color: #4CAF50;
-    }
-
-    .alert-box.error {
-      background-color: #f44336;
-    }
-  </style>
+  <title>弓箭PK - 註冊與登入</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- 註冊表單 -->
   <div id="register-form">
     <h2>註冊</h2>
-    <form onsubmit="event.preventDefault(); register();">
-      <input type="email" id="register-email" placeholder="輸入您的電子郵件" required><br>
-      <input type="password" id="register-password" placeholder="輸入您的密碼" required><br>
-      <button type="submit">註冊</button>
-    </form>
+    <input type="email" id="register-email" placeholder="輸入電子郵件" required>
+    <input type="password" id="register-password" placeholder="輸入密碼" required>
+    <button id="register-btn">註冊</button>
+    <p>已經有帳號？ <a href="#" id="switch-to-login">登入</a></p>
   </div>
 
-  <!-- 登入表單 -->
-  <div id="login-form">
+  <div id="login-form" style="display:none;">
     <h2>登入</h2>
-    <form onsubmit="event.preventDefault(); login();">
-      <input type="email" id="login-email" placeholder="輸入您的電子郵件" required><br>
-      <input type="password" id="login-password" placeholder="輸入您的密碼" required><br>
-      <button type="submit">登入</button>
-    </form>
+    <input type="email" id="login-email" placeholder="輸入電子郵件" required>
+    <input type="password" id="login-password" placeholder="輸入密碼" required>
+    <button id="login-btn">登入</button>
+    <p>還沒有帳號？ <a href="#" id="switch-to-register">註冊</a></p>
   </div>
 
-  <!-- 遊戲頁面 -->
-  <div id="game-page">
-    <h2>歡迎來到弓箭PK遊戲！</h2>
-    <p>這是遊戲頁面，您可以開始遊戲了。</p>
+  <div id="game-page" style="display:none;">
+    <h2>歡迎來到弓箭PK！</h2>
+    <p>這是遊戲頁面。</p>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+  <div id="alert-box" class="alert-box" style="display:none;"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.6/dist/supabase.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
