@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <h1>Testing Supabase Connection</h1>
+    <script>
+        const supabaseUrl = "https://uxjpchtlhietoiwrligm.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4anBjaHRsaGlldG9pd3JsaWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzU0MDYsImV4cCI6MjA0ODk1MTQwNn0.Wftfxzh7RNGy5_6SnRfcvfveAKpaIDFUyrwa7N4pW80";
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+                console.log("Supabase 初始化成功！測試連接...");
+
+                // 測試從 users 表中獲取數據
+                const { data, error } = await supabase.from("users").select("*");
+                if (error) {
+                    console.error("無法訪問 users 表：", error.message);
+                    alert("測試失敗：" + error.message);
+                } else {
+                    console.log("成功獲取 users 表資料：", data);
+                    alert("測試成功！已成功連接 Supabase 並獲取數據。");
+                }
+            } catch (error) {
+                console.error("Supabase 初始化失敗：", error.message);
+                alert("Supabase 初始化失敗，請檢查設置。");
+            }
+        });
+    </script>
+</body>
+</html>
