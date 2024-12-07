@@ -21,10 +21,10 @@ async function login() {
   });
 
   if (error) {
-    alert(error.message);
+    alert('登入失敗：' + error.message); // 顯示登入錯誤消息
   } else {
-    alert('登入成功！');
-    showGamePage();
+    alert('登入成功！'); // 顯示登入成功消息
+    showGamePage(); // 顯示遊戲頁面
   }
 }
 
@@ -39,9 +39,9 @@ async function signup() {
   });
 
   if (error) {
-    alert(error.message);
+    alert('註冊失敗：' + error.message); // 顯示註冊錯誤消息
   } else {
-    alert('註冊成功！請登入');
+    alert('註冊成功！請登入'); // 顯示註冊成功消息
   }
 }
 
@@ -61,7 +61,7 @@ async function createRoom() {
     .insert([{ room_name: roomName, password: password }]);
 
   if (error) {
-    alert(error.message);
+    alert('創建房間失敗：' + error.message); // 顯示創建房間錯誤消息
   } else {
     alert('房間創建成功！');
   }
@@ -80,7 +80,7 @@ async function joinRoom() {
     .single();
 
   if (error) {
-    alert('房間不存在或密碼錯誤');
+    alert('加入房間失敗：' + error.message); // 顯示加入房間錯誤消息
   } else {
     alert('成功加入房間！');
   }
