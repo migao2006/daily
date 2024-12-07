@@ -18,7 +18,7 @@ async function register() {
     if (error) {
       showAlert('註冊失敗：' + error.message, 'error'); // 顯示錯誤訊息
     } else {
-      showAlert('註冊成功！請登入。', 'success'); // 顯示註冊成功訊息
+      showAlert('註冊成功！請檢查您的電子郵件以激活帳號。', 'success'); // 顯示註冊成功訊息
       document.getElementById('register-form').reset(); // 清空表單
     }
   } catch (err) {
@@ -67,7 +67,7 @@ function showAlert(message, type) {
   // 添加到頁面並顯示
   document.body.appendChild(alertBox);
 
-  // 1秒後自動消失
+  // 3秒後自動消失
   setTimeout(() => {
     alertBox.remove();
   }, 3000);
