@@ -15,16 +15,21 @@ async function login() {
   const email = prompt('請輸入您的電子郵件');
   const password = prompt('請輸入您的密碼');
 
-  const { user, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  try {
+    const { user, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) {
-    alert('登入失敗：' + error.message); // 顯示登入錯誤消息
-  } else {
-    alert('登入成功！'); // 顯示登入成功消息
-    showGamePage(); // 顯示遊戲頁面
+    if (error) {
+      alert('登入失敗：' + error.message); // 顯示登入錯誤消息
+    } else {
+      alert('登入成功！'); // 顯示登入成功消息
+      showGamePage(); // 顯示遊戲頁面
+    }
+  } catch (err) {
+    console.error(err);
+    alert('登入過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
   }
 }
 
@@ -33,15 +38,20 @@ async function signup() {
   const email = prompt('請輸入您的電子郵件');
   const password = prompt('請輸入您的密碼');
 
-  const { user, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
+  try {
+    const { user, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
 
-  if (error) {
-    alert('註冊失敗：' + error.message); // 顯示註冊錯誤消息
-  } else {
-    alert('註冊成功！請登入'); // 顯示註冊成功消息
+    if (error) {
+      alert('註冊失敗：' + error.message); // 顯示註冊錯誤消息
+    } else {
+      alert('註冊成功！請登入'); // 顯示註冊成功消息
+    }
+  } catch (err) {
+    console.error(err);
+    alert('註冊過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
   }
 }
 
@@ -56,14 +66,19 @@ async function createRoom() {
   const roomName = prompt('請輸入房間名稱');
   const password = prompt('請設定房間密碼');
 
-  const { data, error } = await supabase
-    .from('rooms')
-    .insert([{ room_name: roomName, password: password }]);
+  try {
+    const { data, error } = await supabase
+      .from('rooms')
+      .insert([{ room_name: roomName, password: password }]);
 
-  if (error) {
-    alert('創建房間失敗：' + error.message); // 顯示創建房間錯誤消息
-  } else {
-    alert('房間創建成功！');
+    if (error) {
+      alert('創建房間失敗：' + error.message); // 顯示創建房間錯誤消息
+    } else {
+      alert('房間創建成功！');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('創建房間過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
   }
 }
 
@@ -72,16 +87,21 @@ async function joinRoom() {
   const roomName = prompt('請輸入房間名稱');
   const password = prompt('請輸入房間密碼');
 
-  const { data, error } = await supabase
-    .from('rooms')
-    .select('*')
-    .eq('room_name', roomName)
-    .eq('password', password)
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('rooms')
+      .select('*')
+      .eq('room_name', roomName)
+      .eq('password', password)
+      .single();
 
-  if (error) {
-    alert('加入房間失敗：' + error.message); // 顯示加入房間錯誤消息
-  } else {
-    alert('成功加入房間！');
+    if (error) {
+      alert('加入房間失敗：' + error.message); // 顯示加入房間錯誤消息
+    } else {
+      alert('成功加入房間！');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('加入房間過程中發生錯誤：' + err.message); // 顯示更詳細的錯誤
   }
 }
