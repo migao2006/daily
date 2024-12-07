@@ -1,4 +1,4 @@
-const BASE_URL = "https://uxjpchtlhietoiwrligm.supabase.co";
+const BASE_URL = "https://uxjpchtlhietoiwrligm.supabase.co/rest/v1";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4anBjaHRsaGlldG9pd3JsaWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzU0MDYsImV4cCI6MjA0ODk1MTQwNn0.Wftfxzh7RNGy5_6SnRfcvfveAKpaIDFUyrwa7N4pW80";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,8 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const reactionTime = Date.now() - startTime;
     messageDiv.textContent = `${player} 勝利！反應時間：${reactionTime} ms`;
+
+    // 提交結果到 Supabase
     await submitResult(player, reactionTime);
+
+    // 獲取排行榜
     await fetchLeaderboard();
+
+    // 重置遊戲
     resetGame();
   }
 
@@ -53,20 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
           apiKey: API_KEY,
           Authorization: `Bearer ${API_KEY}`,
         },
-        body: JSON.stringify({ player, reaction_time: reactionTime }),
+        body: JSON.stringify({
+          player: player,
+          reaction_time: reactionTime,
+        }),
       });
 
       if (!response.ok) {
-        console.error("提交失敗：", await response.text());
+        const errorText = await response.text();
+        console.error("提交失敗：", errorText);
+        messageDiv.textContent = "提交失敗，請稍後再試！";
+      } else {
+        console.log("結果成功提交！");
       }
     } catch (error) {
-      console.error("提交時出錯：", error);
+      console.error("提交時發生錯誤：", error);
+      messageDiv.textContent = "提交失敗，請檢查網路！";
     }
   }
 
   async function fetchLeaderboard() {
     try {
       const response = await fetch(`${BASE_URL}/game_results`, {
+        method: "GET",
         headers: {
           apiKey: API_KEY,
           Authorization: `Bearer ${API_KEY}`,
@@ -77,15 +92,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const results = await response.json();
         leaderboard.innerHTML = results
           .sort((a, b) => a.reaction_time - b.reaction_time)
-          .map((result) => `<li>${result.player}: ${result.reaction_time} ms</li>`)
+          .map(
+            (result) =>
+              `<li>${result.player}: ${result.reaction_time.toFixed(2)} ms</li>`
+          )
           .join("");
       } else {
-        console.error("無法獲取排行榜：", await response.text());
+        const errorText = await response.text();
+        console.error("無法獲取排行榜：", errorText);
+        messageDiv.textContent = "無法獲取排行榜，請稍後再試！";
       }
     } catch (error) {
-      console.error("獲取排行榜時出錯：", error);
+      console.error("獲取排行榜時發生錯誤：", error);
+      messageDiv.textContent = "無法獲取排行榜，請檢查網路！";
     }
   }
 
+  // 初始化排行榜
   fetchLeaderboard();
 });
