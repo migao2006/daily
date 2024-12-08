@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appwrite Auth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Appwrite 登入與註冊</h1>
+        <div id="message"></div>
+        <form id="signup-form">
+            <h2>註冊</h2>
+            <input type="email" id="signup-email" placeholder="電子郵件" required>
+            <input type="password" id="signup-password" placeholder="密碼" required>
+            <button type="submit">註冊</button>
+        </form>
+        <hr>
+        <form id="login-form">
+            <h2>登入</h2>
+            <input type="email" id="login-email" placeholder="電子郵件" required>
+            <input type="password" id="login-password" placeholder="密碼" required>
+            <button type="submit">登入</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite"></script>
+    <script src="app.js"></script>
+</body>
+</html>
